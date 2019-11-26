@@ -1,4 +1,4 @@
-package com.lz.redis.luaandtransaction.lua;
+package com.lz.redis.luaandtransaction.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/lua")
 @Api(value = "testLua", tags = "testLua")
-public class TestLuaController {
+public class LuaController {
 
     @Autowired
     private RedisTemplate redisTemplate;

@@ -1,7 +1,8 @@
-package com.lz.redis.luaandtransaction.transaction;
+package com.lz.redis.luaandtransaction.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.RedisOperations;
@@ -18,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/transaction")
 @Api(value = "testTransaction", tags = "testTransaction")
-public class TestTransactionController {
+@Slf4j
+public class TransactionController {
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -26,6 +28,7 @@ public class TestTransactionController {
     @PostMapping("/transaction1")
     @ApiOperation(value = "have transaction")
     public Object testTransaction1() {
+
         //事务是放在队列里面，原子性操作
         Object object = redisTemplate.execute(new SessionCallback<Object>() {
             @Override
@@ -34,6 +37,7 @@ public class TestTransactionController {
                 operations.opsForValue().set("name", "qinyi");
                 operations.opsForValue().set("gender", "male");
                 operations.opsForValue().set("age", "19");
+
                 return operations.exec();
             }
         });
